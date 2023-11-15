@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Service</title>
+</head>
+<body>
+    <h1>Billing Service</h1>
+    
+    <div>
+        <p>{{ welcome_message }}</p>
+    </div>
+
+    <form method="post" action="/process_table">
+        <label for="table">Select Table:</label>
+        <select id="table" name="table_id">
+            {% for table in tables %}
+                <option value="{{ table.id }}">{{ table.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+        <input type="button" value="LogOff" onclick="resetTable()">
+    </form>
+
+    {% if selected_table %}
+        <h2>Table {{ selected_table }} Juice Menu:</h2>
+        <table border="1">
+            <tr>
+                <th>Juice</th>
+                <th>Price</th>
+            </tr>
+            {% for juice in juice_menu %}
+                <tr>
+                    <td>{{ juice.name }}</td>
+                    <td>${{ juice.price }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    <script>
+        function resetTable() {
+            document.getElementById("table").selectedIndex = 0;
+            window.location.href = 'http://127.0.0.1:5000/login';
+        }
+    </script>
+</body>
+</html>

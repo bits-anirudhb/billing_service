@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page</title>
+</head>
+<body>
+    <h1>Order Page</h1>
+    <form method="post" action="/process_order">
+        <h2>Juice Menu:</h2>
+        <table border="1">
+            <tr>
+                <th>Juice</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Add to Order</th>
+            </tr>
+            {% for juice in juice_menu %}
+                <tr>
+                    <td>{{ juice.name }}</td>
+                    <td>${{ juice.price }}</td>
+                    <td><input type="hidden" name="table_id" value="{{ selected_table }}"></td>
+                    <td><input type="number" name="quantity_{{ juice.id }}" value="0" min="0"></td>
+                    <td><input type="checkbox" name="juices[]" value="{{ juice.id }}"></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <input type="hidden" name="table_id" value="{{ selected_table }}">
+        <input type="submit" value="Add to Order">
+    </form>
+</body>
+</html>
